@@ -1,0 +1,19 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "description": "- Kanban - Trello     - login     - visualizar as listas e as tarefas nas listas     - cadastrar lista e cadastrar tarefas     - mover uma tarefa entre as listas",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kanbanweb2/project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kanbanweb2/project/issues"
+  },
+  "homepage": "https://github.com/kanbanweb2/project#readme"
+}
