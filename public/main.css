@@ -1,3 +1,13 @@
-body{
-    text-align: center;
-}
+#ListContainer {
+    display: flex;
+
+ }
+
+ .item{
+     text-align: center;
+     margin: 5px;
+ }
+
+ .flex-item-1{
+     flex: 1;
+ }
