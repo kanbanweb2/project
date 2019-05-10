@@ -11,3 +11,8 @@
  .flex-item-1{
      flex: 1;
  }
+
+ menu{
+     display: flex;
+     text-align: center;
+ }

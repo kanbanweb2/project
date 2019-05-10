@@ -5,9 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" media="screen" href="../public/main.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="/main.css"/>
+    <link rel="stylesheet" type="text/css" media="screen" href="/pop.css"/>
 </head>
 <body>
+    
+     <div class="form-popup" id="formActivity">
+        <form action="/activity" class="form-container" method="POST">
+            <h1>Adicionar Tarefa</h1>
+
+            <label for="list"><b>Adicionar em: </b></label>
+             <select name="list">
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+            </select> 
+
+            <input type="text" placeholder="Atividade" name="activity">
+
+            <button type="submit" class="btn">Adicionar</button>
+        </form>
+        <button class="btn cancel" onclick="closeForm()">Close</button>
+    </div> 
+     <div class="form-popup" id="formList">
+        <form action="/list" class="form-container" method="POST">
+            <h1>Adicionar Lista</h1>
+            <input type="text" placeholder="Lista" name="list">
+
+            <button type="submit" class="btn">Adicionar</button>
+        </form>
+        <button class="btn cancel" onclick="closeForm()">Close</button>
+    </div> 
+
+    <menu>
+        <button id="updateAtividade" onclick="openFormActivity()">Adicionar Atividade</button>
+        <button id="updateLista" onclick="openFormList()">Adicionar Lista</button>
+    </menu>
+
+
+
     <div id="ListContainer">
         <div id="toDo" class="item flex-item-1">
             <h1>A Fazer</h1>
@@ -21,5 +58,23 @@
             <h1>Feito</h1>
         </div>
     </div>
+
+    <script>
+        function openFormActivity() {
+            closeForm()
+            document.getElementById("formActivity").style.display = "inline-block";
+            document.getElementById("formActivity").style.textAlign = "center";
+        }
+        function openFormList() {
+            closeForm()
+            document.getElementById("formList").style.display = "inline-block";
+            document.getElementById("formList").style.textAlign = "center";
+        }
+
+        function closeForm() {
+           document.getElementById("formActivity").style.display = "none";
+           document.getElementById("formList").style.display = "none";
+        } 
+    </script>
 </body>
 </html>
