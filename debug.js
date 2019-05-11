@@ -3,6 +3,9 @@ let express = require('express')
     path = require('path')
     bodyParser = require('body-parser')
     cookieParser = require('cookie-parser')
+    db = require('./mongod')
+
+    
 app.use(express.static(path.join(__dirname,'public')))
 app.set('view engine', 'hbs')
 app.use(cookieParser());
