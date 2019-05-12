@@ -16,7 +16,7 @@ module.exports = class ListDAO{
 
     static read(callback){
         ListDAO.connect((db) => {
-            db.collection('kanbam').find().toArray((err, list) => {
+            db.collection('list').find().toArray((err, list) => {
                 if(err) {throw err}
                 else{
                     callback(list)
@@ -27,7 +27,7 @@ module.exports = class ListDAO{
 
     static create(name){
         ListDAO.connect((db) => {
-            db.collection('kanbam').insertOne({
+            db.collection('list').insertOne({
                 'name': name,
                 'activities': []
             })

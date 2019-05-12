@@ -18,13 +18,19 @@ app.post('/login', (req, res) => {
     res.redirect('/')
 })
 
+app.post('/list', (req, res) => {
+    db.create(req.body.list)
+    res.redirect('/')
+})
+
 app.get('/', (req, res) => {
     if(req.cookies && req.cookies.login){
         db.read((list) => {
             res.render('index', {user:req.cookies.login, list:list})
         })
+    }else{
+        res.render('login')
     }
-    res.render('login')
 })
 
 app.listen(8000, ()=> {

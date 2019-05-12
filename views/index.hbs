@@ -43,22 +43,19 @@
         <button id="updateLista" onclick="openFormList()">Adicionar Lista</button>
     </menu>
 
-
-
     <div id="ListContainer">
-        <div id="toDo" class="item flex-item-1">
+        
+        {{!-- <div id="toDo" class="item flex-item-1">
             <h1>A Fazer</h1>
-            {{!-- {{#each activities}}
-            <p>{{activities}}</p> --}}
+        </div> --}}
+        {{#each list}}
+        <div id="{{name}}" class="item flex-item-1">
+            <h1>{{name}}</h1>
+            {{#activities}}
+            <p>{{this}}</p>
+            {{/activities}}
         </div>
-
-        <div id="doing" class="item flex-item-1">
-            <h1>Fazendo</h1>
-        </div>
-
-        <div id="done" class="item flex-item-1">
-            <h1>Feito</h1>
-        </div>
+        {{/each}}
     </div>
 
     <script>

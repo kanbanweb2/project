@@ -21,11 +21,14 @@ app.post('/login', (req, res) => {
     res.redirect('/')
 })
 
+app.post('/list', (req, res) => {
+    db.create(req.body.list)
+    res.redirect('/')
+})
+
 app.get('/', (req, res) => {
     db.read((list) => {
-        res.render('index', {list: list})
-        // res.render('index', {user:req.cookies.login, list: list})
-        // res.render('index', {user:req.cookies.login})
+        res.render('index', {user:req.cookies.login, list: list})
     })
 })
 
