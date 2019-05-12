@@ -16,8 +16,10 @@
 
             <label for="list"><b>Adicionar em: </b></label>
              <select name="list">
-                 {{#each name}}
+                {{#each list}}
                 <option value="{{name}}">{{name}}</option>
+                {{/each}}
+                <option value="teste">teste</option>
             </select> 
 
             <input type="text" placeholder="Atividade" name="activity">
@@ -46,6 +48,8 @@
     <div id="ListContainer">
         <div id="toDo" class="item flex-item-1">
             <h1>A Fazer</h1>
+            {{!-- {{#each activities}}
+            <p>{{activities}}</p> --}}
         </div>
 
         <div id="doing" class="item flex-item-1">

@@ -20,7 +20,9 @@ app.post('/login', (req, res) => {
 
 app.get('/', (req, res) => {
     if(req.cookies && req.cookies.login){
-        res.render('index', {user:req.cookies.login})
+        db.read((list) => {
+            res.render('index', {user:req.cookies.login, list:list})
+        })
     }
     res.render('login')
 })
