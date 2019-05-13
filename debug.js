@@ -22,7 +22,12 @@ app.post('/login', (req, res) => {
 })
 
 app.post('/list', (req, res) => {
-    db.create(req.body.list)
+    db.createList(req.body.list)
+    res.redirect('/')
+})
+
+app.post('/activity', (req, res) => {
+    db.addActivity(req.body.list, req.body.activity)
     res.redirect('/')
 })
 

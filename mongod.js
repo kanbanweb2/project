@@ -25,12 +25,21 @@ module.exports = class ListDAO{
         })
     }
 
-    static create(name){
+    static createList(name){
         ListDAO.connect((db) => {
             db.collection('list').insertOne({
                 'name': name,
                 'activities': []
             })
+        })
+    }
+
+    static addActivity(list, activity){
+        ListDAO.connect((db) => {
+            db.collection('list').updateOne(
+                {name: list},
+                {$addToSet: {activities: [activity]}}
+            )
         })
     }
 }
