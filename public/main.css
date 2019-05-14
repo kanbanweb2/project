@@ -16,3 +16,9 @@
      display: flex;
      text-align: center;
  }
+
+
+ #ListContainer img{
+    width: 20px;
+}
+

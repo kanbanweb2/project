@@ -20,7 +20,6 @@
                 {{#each list}}
                 <option value="{{name}}">{{name}}</option>
                 {{/each}}
-                <option value="teste">teste</option>
             </select> 
 
             <input type="text" placeholder="Atividade" name="activity">
@@ -28,6 +27,22 @@
             <button type="submit" class="btn">Adicionar</button>
         </form>
         <button class="btn cancel" onclick="closeForm()">Close</button>
+    </div> 
+
+    {{!-- Pop-up para tranferir tarefa entre listas --}}
+     <div class="form-popup" id="formTransfer">
+        <form action="/transfer" class="form-container" method="POST">
+            <h1>Adicionar Tarefa</h1>
+
+            <label for="list"><b>Transferir para: </b></label>
+             <select name="list">
+                {{#each list}}
+                <option value="{{name}}">{{name}}</option>
+                {{/each}}
+            </select> 
+            <button type="submit" class="btn">Confirmar</button>
+        </form>
+        <button class="btn cancel" onclick="closeForm()">Cancelar</button>
     </div> 
 
 
@@ -42,6 +57,7 @@
         <button class="btn cancel" onclick="closeForm()">Close</button>
     </div> 
 
+    {{!-- menu com botoes para adicionar tarefas e listas --}}
     <menu>
         <button id="createActivity" onclick="openFormActivity()">Adicionar Atividade</button>
         <button id="createList" onclick="openFormList()">Adicionar Lista</button>
@@ -49,19 +65,20 @@
 
     <div id="ListContainer">
         
-        {{!-- <div id="toDo" class="item flex-item-1">
-            <h1>A Fazer</h1>
-        </div> --}}
+        {{!-- adiciona div's com titulos que se referem as listas presentes no banco (name) --}}
         {{#each list}}
         <div id="{{name}}" class="item flex-item-1">
             <h1>{{name}}</h1>
+            {{!-- adiciona '<p>' para cada atividade presente nas listas --}}
             {{#activities}}
-            <p>{{this}}</p>
+            <p>{{this}}<button onclick="openFormTransfer('{{this}}')" ><img src="/icon.svg"></button></p>
             {{/activities}}
         </div>
         {{/each}}
     </div>
 
+
+    {{!-- script javascript, separar em documento posteriormente ?? --}}
     <script>
         function openFormActivity() {
             closeForm()
@@ -74,8 +91,17 @@
             document.getElementById("formList").style.textAlign = "center";
         }
 
+
+        function openFormTransfer(name){
+            closeForm()
+            document.getElementById("transferPop").innerHTML = name;
+            document.getElementById("formTransfer").style.display = "inline-block";
+            document.getElementById("formTransfer").style.textAlign = "center";
+        }
+
         function closeForm() {
            document.getElementById("formActivity").style.display = "none";
+           document.getElementById("formTransfer").style.display = "none";
            document.getElementById("formList").style.display = "none";
         } 
     </script>
