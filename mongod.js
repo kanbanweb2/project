@@ -42,4 +42,8 @@ module.exports = class ListDAO{
             )
         })
     }
+
+    // static alterActivity(){
+    //     ListDAO.connect('list')
+    // }
 }

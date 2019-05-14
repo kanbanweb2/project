@@ -32,7 +32,7 @@
     {{!-- Pop-up para tranferir tarefa entre listas --}}
      <div class="form-popup" id="formTransfer">
         <form action="/transfer" class="form-container" method="POST">
-            <h1>Adicionar Tarefa</h1>
+            <h1 id="transferPop"></h1>
 
             <label for="list"><b>Transferir para: </b></label>
              <select name="list">
@@ -68,7 +68,7 @@
         {{!-- adiciona div's com titulos que se referem as listas presentes no banco (name) --}}
         {{#each list}}
         <div id="{{name}}" class="item flex-item-1">
-            <h1>{{name}}</h1>
+            <h1 id="{{name}}">{{name}}</h1>
             {{!-- adiciona '<p>' para cada atividade presente nas listas --}}
             {{#activities}}
             <p>{{this}}<button onclick="openFormTransfer('{{this}}')" ><img src="/icon.svg"></button></p>

@@ -31,9 +31,9 @@ app.post('/activity', (req, res) => {
     res.redirect('/')
 })
 
-app.post('/transfer', (req, res) => {
-    // Terminar aqui
-})
+// app.post('/transfer', (req, res) => {
+//     // Terminar aqui
+// })
 
 app.get('/', (req, res) => {
     if(req.cookies && req.cookies.login){
