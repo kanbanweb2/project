@@ -22,12 +22,12 @@ app.post('/login', (req, res) => {
 })
 
 app.post('/list', (req, res) => {
-    db.createList(req.body.list)
+    db.createList(req.body.list, req.cookies.login)
     res.redirect('/')
 })
 
 app.post('/activity', (req, res) => {
-    db.addActivity(req.body.list, req.body.activity)
+    db.addActivity(req.body.list, req.body.activity, req.cookies.login)
     res.redirect('/')
 })
 
@@ -37,7 +37,7 @@ app.post('/activity', (req, res) => {
 
 app.get('/', (req, res) => {
     if(req.cookies && req.cookies.login){
-        db.read((list) => {
+        db.read(req.cookies.login, (list) => {
             res.render('index', {user:req.cookies.login, list:list})
         })
     }else{

@@ -14,9 +14,12 @@ module.exports = class ListDAO{
         })
     }
 
-    static read(callback){
+    static read(cookieUser, callback){
+        console.log(cookieUser)
         ListDAO.connect((db) => {
-            db.collection('list').find().toArray((err, list) => {
+            db.collection('list').find({
+                user:  cookieUser//Arrumar referencia
+            }).toArray((err, list) => {
                 if(err) {throw err}
                 else{
                     callback(list)
@@ -25,19 +28,21 @@ module.exports = class ListDAO{
         })
     }
 
-    static createList(name){
+    static createList(name, userCookie){
         ListDAO.connect((db) => {
             db.collection('list').insertOne({
                 'name': name,
-                'activities': []
+                'activities': [],
+                'user': userCookie
             })
         })
     }
 
-    static addActivity(list, activity){
+    static addActivity(list, activity, userCookie){
         ListDAO.connect((db) => {
             db.collection('list').updateOne(
-                {name: list},
+                {name: list,
+                user:userCookie},
                 {$addToSet: {activities: [activity]}}
             )
         })
