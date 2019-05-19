@@ -95,6 +95,7 @@
         function openFormTransfer(name){
             closeForm()
             document.getElementById("transferPop").innerHTML = name;
+            document.getElementById("transferPop").setAttribute('activity', name);
             document.getElementById("formTransfer").style.display = "inline-block";
             document.getElementById("formTransfer").style.textAlign = "center";
         }
@@ -103,7 +104,7 @@
            document.getElementById("formActivity").style.display = "none";
            document.getElementById("formTransfer").style.display = "none";
            document.getElementById("formList").style.display = "none";
-        } 
+        }
     </script>
 </body>
 </html>

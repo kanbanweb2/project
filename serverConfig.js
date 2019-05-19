@@ -31,9 +31,10 @@ app.post('/activity', (req, res) => {
     res.redirect('/')
 })
 
-// app.post('/transfer', (req, res) => {
-//     // Terminar aqui
-// })
+app.post('/transfer', (req, res) => {
+    db.alterActivity(req.body.list, req.body.activity, req.cookies.login)
+    res.redirect('/')
+})
 
 app.get('/', (req, res) => {
     if(req.cookies && req.cookies.login){

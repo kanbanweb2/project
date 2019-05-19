@@ -15,7 +15,6 @@ module.exports = class ListDAO{
     }
 
     static read(cookieUser, callback){
-        console.log(cookieUser)
         ListDAO.connect((db) => {
             db.collection('list').find({
                 user:  cookieUser//Arrumar referencia
@@ -43,12 +42,28 @@ module.exports = class ListDAO{
             db.collection('list').updateOne(
                 {name: list,
                 user:userCookie},
-                {$addToSet: {activities: [activity]}}
+                {$addToSet: {activities: activity}}
             )
         })
     }
 
-    // static alterActivity(){
-    //     ListDAO.connect('list')
-    // }
+    static removeActivity(activity, userCookie){
+        ListDAO.connect((db) => {
+            db.collection('list').updateOne(
+                {
+                    user: userCookie
+                },{
+                    $pull:{
+                        activities:{
+                            $in: [activity]
+                        }
+                    }
+                })
+        })
+    }
+
+    static alterActivity(list, activity, userCookie){
+        ListDAO.removeActivity(activity, userCookie)
+        ListDAO.addActivity(list, activity, userCookie)
+    }
 }
