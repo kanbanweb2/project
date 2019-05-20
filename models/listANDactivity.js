@@ -1,5 +1,5 @@
 let mongo = require('mongodb').MongoClient
-
+//verificar de usar a referencia e conexão no database 
 module.exports = class ListDAO{
     static connect(callback){
         mongo.connect('mongodb://localhost:27017',
@@ -8,7 +8,7 @@ module.exports = class ListDAO{
         }, (err, conn) => {
             if(err) {throw err}
             else{
-                let db = conn.db('kanbam')
+                let db = conn.db('kanban')
                 callback(db)
             }
         })

@@ -3,7 +3,9 @@ let express = require('express')
     path = require('path')
     bodyParser = require('body-parser')
     cookieParser = require('cookie-parser')
-    db = require('./mongod')
+    db = require('./models/listANDactivity')
+    User = require('./models/user')
+    //router = express.Router(); *se for para usar rota
 
 
 app.use(express.static(path.join(__dirname,'public')))
@@ -11,15 +13,14 @@ app.set('view engine', 'hbs')
 app.use(cookieParser());
 
 app.use(bodyParser.urlencoded({extended: true}))
-
+//-------------------------------------LOGIN
 app.get('/login', (req, res) => {
     res.render('login')
 })
 
-app.post('/login', (req, res) => {
-    res.cookie('login', req.body.login)
-    res.redirect('/')
-})
+require('./controllers/authController')(app);
+//-----------------------------------------REGISTER
+
 
 app.post('/list', (req, res) => {
     db.createList(req.body.list, req.cookies.login)
