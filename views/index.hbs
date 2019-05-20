@@ -32,8 +32,7 @@
     {{!-- Pop-up para tranferir tarefa entre listas --}}
      <div class="form-popup" id="formTransfer">
         <form action="/transfer" class="form-container" method="POST">
-            <h1 id="transferPop"></h1>
-
+            <input id="transferPop" type="text" name="activity" readonly>
             <label for="list"><b>Transferir para: </b></label>
              <select name="list">
                 {{#each list}}
@@ -61,6 +60,7 @@
     <menu>
         <button id="createActivity" onclick="openFormActivity()">Adicionar Atividade</button>
         <button id="createList" onclick="openFormList()">Adicionar Lista</button>
+        <button id="transferActivity" onclick="openFormTransfer()" ><img src="/icon.svg"></button>
     </menu>
 
     <div id="ListContainer">
@@ -71,7 +71,7 @@
             <h1 id="{{name}}">{{name}}</h1>
             {{!-- adiciona '<p>' para cada atividade presente nas listas --}}
             {{#activities}}
-            <p>{{this}}<button onclick="openFormTransfer('{{this}}')" ><img src="/icon.svg"></button></p>
+            <p>{{this}}</p>
             {{/activities}}
         </div>
         {{/each}}
@@ -92,10 +92,8 @@
         }
 
 
-        function openFormTransfer(name){
+        function openFormTransfer(){
             closeForm()
-            document.getElementById("transferPop").innerHTML = name;
-            document.getElementById("transferPop").setAttribute('activity', name);
             document.getElementById("formTransfer").style.display = "inline-block";
             document.getElementById("formTransfer").style.textAlign = "center";
         }
