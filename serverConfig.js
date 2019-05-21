@@ -5,18 +5,62 @@ let express = require('express')
     cookieParser = require('cookie-parser')
     db = require('./models/listANDactivity')
     User = require('./models/user')
-    //router = express.Router(); *se for para usar rota
+    
 
 
 app.use(express.static(path.join(__dirname,'public')))
 app.set('view engine', 'hbs')
-app.use(cookieParser());
+app.use(cookieParser()); //lidando com cookies
 
-app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.urlencoded({extended: false}))
 //-------------------------------------LOGIN
 app.get('/login', (req, res) => {
     res.render('login')
 })
+/*
+app.post('/login', function (req, res, next){
+    let login = req.body.login,
+    password = req.body.password;
+    User.findOne({login: login, password: password}, function(err, user){
+        if (err){
+            console.log(err);
+            return res.status(500).send({error: "Dados incorretos"});
+        }
+        if (!user){
+            return res.status(404).send({error: "Não encontrado"});
+        }
+        res.cookie('login', login);
+        res.redirect('/');
+        res.end();
+        return;
+    });
+});
+*/
+
+app.post('/login', function (req, res, next){
+    let login = req.body.login,
+    password = req.body.password;
+    if (User.findOne({login: login, password: password}){
+        console.log(login);
+    }else{
+        console.log("não achou");
+    }
+    if (login == 'felipe' && password == '123'){
+        res.cookie('login', login);
+        res.redirect('/');
+        return;
+    }else{
+        res.status(400);
+        res.write('erro nao foi');
+        res.end();
+    }
+});
+
+
+app.get('/logout', function (req,res){
+    res.clearCookie('login');
+    res.redirect('/');
+});
 
 require('./controllers/authController')(app);
 //-----------------------------------------REGISTER
@@ -37,6 +81,7 @@ app.post('/transfer', (req, res) => {
     res.redirect('/')
 })
 
+//-------------------------------------------VERIFICAR SE HÁ COOKIE ATIVO
 app.get('/', (req, res) => {
     if(req.cookies && req.cookies.login){
         db.read(req.cookies.login, (list) => {

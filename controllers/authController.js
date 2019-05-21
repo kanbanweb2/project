@@ -20,4 +20,9 @@ try{
 
 });
 
+router.get('/logout', function(req, res){
+    delete req.session.login;
+    res.redirect('/');
+  });
+
 module.exports = (app) => app.use('/auth', router);
