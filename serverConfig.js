@@ -37,15 +37,18 @@ app.post('/login', function (req, res, next){
 });*/
 
 
-app.post('/login', function (req, res, next){
+app.post('/login', (req, res) => {
     let login = req.body.login,
         password = req.body.password;
     let userFound = null;
 
     User.get().then((users) => {
         users.forEach(function (user){
+            console.log(login);
             if (login == user.login && password == user.password){
                 userFound = user;
+                console.log(user.login +  "  " + user.password);
+                
             }
         });
         if (userFound != null ){
