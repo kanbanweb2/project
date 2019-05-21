@@ -1,0 +1,1 @@
+web: node ./serverConfig.js
