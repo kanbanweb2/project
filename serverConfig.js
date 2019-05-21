@@ -4,6 +4,9 @@ let express = require('express')
     bodyParser = require('body-parser')
     cookieParser = require('cookie-parser')
 
+    var userRouter = require('./routes/user');
+    //var listRouter = require ('./routes/list');
+
     db = require('./models/listANDactivity')
     User = require('./models/userDAO')
     
@@ -14,69 +17,14 @@ app.set('view engine', 'hbs')
 app.use(cookieParser()); //lidando com cookies
 
 app.use(bodyParser.urlencoded({extended: false}))
-//-------------------------------------LOGIN
-app.get('/login', (req, res) => {
-    res.render('login')
-})
 
-app.post('/login', (req, res) => {
-    let login = req.body.login,
-        password = req.body.password;
-    let userFound = null;
-    if(login == "null" || password == "null")
-        return res.status(404).send({error: "Campo nulo identificado"});
-   
-    User.get().then((users) => {
-        users.forEach(function (user){
-        
-            if (login == user.login && password == user.password){
-                userFound = user;
 
-            }
-        });
-        if (userFound != null ){
-            console.log("Logado com sucesso");
-            res.cookie('login', login);
-            res.redirect('/');
-            return;
-        }else {
-            res.status(403);
-            return res.status(403).send({error: "Usuário não encontrado"});
-        }
-    });
-});
+app.use('/', userRouter);
 
-//--------------------------------Acessar registrar
-app.get('/register', (req, res)=>{
-    res.render('registerUser')
-});
-//----------------------------------Registrar
-app.post('/register', (req, res)=>{
-    let login = req.body.login,
-        password = req.body.password;
-        if(login == "null" || password == "null")
-            return res.status(404).send({error: "Campo nulo identificado"});
-
-        User.get().then((users) => {
-            users.forEach(function (user){
-                if (login == user.login){
-                    return res.status(400).send({error: "Esse usuário já existe."});
-                }
-            });
-            User.insert(login, password);
-            console.log("Novo usuário cadastrado");
-            res.redirect('/');
-        });
-});
-//------------------------------------Logout
-app.get('/logout', function (req,res){
-    res.clearCookie('login');
-    res.redirect('/');
-});
 
 //------------------------------------Listas e Activities
 
-app.post('/list', (req, res) => {
+app.post('/list', (req, res) => {    
     db.createList(req.body.list, req.cookies.login)
     res.redirect('/')
 })
