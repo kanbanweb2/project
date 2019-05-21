@@ -4,7 +4,7 @@ let express = require('express')
     bodyParser = require('body-parser')
     cookieParser = require('cookie-parser')
     db = require('./models/listANDactivity')
-    User = require('./models/user')
+    User = require('./models/userDAO')
     
 
 
@@ -39,30 +39,51 @@ app.post('/login', function (req, res, next){
 
 app.post('/login', function (req, res, next){
     let login = req.body.login,
-    password = req.body.password;
-   /* if (User.findOne({login: login, password: password})
-            console.log(login);
-        else{
-            console.log("não achou");
-    }*/
-    if (login == 'felipe' && password == '123'){
-        res.cookie('login', login);
-        res.redirect('/');
-        return;
-    }else{
-        res.status(400);
-        res.write('erro nao foi');
-        res.end();
-    }
+        password = req.body.password;
+    let userFound = null;
+
+    User.get().then((users) => {
+        users.forEach(function (user){
+            if (login == user.login && password == user.password){
+                userFound = user;
+            }
+        });
+        if (userFound != null ){
+            res.cookie('login', login);
+            res.redirect('/');
+        }else {
+            res.status(404);
+            return res.status(404).send({error: "Não encontrado"});
+        }
+
+    });
 });
 
+
+app.get('/register', (req, res)=>{
+    res.render('registerUser')
+});
+
+app.post('/register', (req, res)=>{
+    let login = req.body.login,
+        password = req.body.password;
+        User.get().then((users) => {
+            users.forEach(function (user){
+                if (login == user.login){
+                    return res.status(400).send({error: "Esse usuário já existe."});
+                }
+            });
+            User.insert(login, password);
+            res.redirect('/');
+        });
+});
 
 app.get('/logout', function (req,res){
     res.clearCookie('login');
     res.redirect('/');
 });
 
-require('./controllers/authController')(app);
+//require('./controllers/authController')(app); 
 //-----------------------------------------REGISTER
 
 

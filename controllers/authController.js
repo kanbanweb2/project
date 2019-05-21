@@ -1,5 +1,5 @@
-let express = require ('express');
-let User = require('../models/user');
+/*let express = require ('express');
+let User = require('../models/userDAO');
 let router = express.Router();
 
 router.post('/register', async (req,res) =>{
@@ -29,4 +29,4 @@ router.get('/logout', function(req, res){
     res.redirect('/');
   });
 
-module.exports = app => app.use('/auth', router);
+module.exports = app => app.use('/auth', router);*/
