@@ -17,26 +17,6 @@ app.use(bodyParser.urlencoded({extended: false}))
 app.get('/login', (req, res) => {
     res.render('login')
 })
-/*
-app.post('/login', function (req, res, next){
-    let login = req.body.login,
-    password = req.body.password;
-    User.findOne({login: login, password: password}, function(err, user){
-        if (err){
-            console.log(err);
-            return res.status(500).send({error: "Dados incorretos"});
-        }
-        if (!user){
-            return res.status(404).send({error: "Não encontrado"});
-        }
-        res.cookie('login', login);
-        res.redirect('/');
-        res.end();
-        return;
-    });
-});*/
-
-let usuario = null;
 
 app.post('/login', (req, res) => {
     let login = req.body.login,
@@ -45,11 +25,10 @@ app.post('/login', (req, res) => {
 
     User.get().then((users) => {
         users.forEach(function (user){
-            console.log(login);
-            console.log("mongo tem: " + user.login + "pass: " + user.password);
+        
             if (login == user.login && password == user.password){
                 userFound = user;
-                console.log("achou 1 " + user.login +  "  " + user.password);
+
             }
         });
         if (userFound != null ){
@@ -60,15 +39,14 @@ app.post('/login', (req, res) => {
             res.status(403);
             return res.status(403).send({error: "Usuário não encontrado"});
         }
-
     });
 });
 
-
+//--------------------------------Acessar registrar
 app.get('/register', (req, res)=>{
     res.render('registerUser')
 });
-
+//----------------------------------Registrar
 app.post('/register', (req, res)=>{
     let login = req.body.login,
         password = req.body.password;
@@ -82,15 +60,13 @@ app.post('/register', (req, res)=>{
             res.redirect('/');
         });
 });
-
+//------------------------------------Logout
 app.get('/logout', function (req,res){
     res.clearCookie('login');
     res.redirect('/');
 });
 
-//require('./controllers/authController')(app); 
-//-----------------------------------------REGISTER
-
+//------------------------------------Listas e Activities
 
 app.post('/list', (req, res) => {
     db.createList(req.body.list, req.cookies.login)
