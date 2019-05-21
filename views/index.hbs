@@ -32,8 +32,15 @@
     {{!-- Pop-up para tranferir tarefa entre listas --}}
      <div class="form-popup" id="formTransfer">
         <form action="/transfer" class="form-container" method="POST">
-            <input id="transferPop" type="text" name="activity" readonly>
-            <label for="list"><b>Transferir para: </b></label>
+            <label for="activity"><b>Transferir:</b></label>
+            <select name="activity">
+                {{#each list}}
+                    {{#activities}}
+                    <option value="{{this}}">{{this}}</option>
+                    {{/activities}}
+                {{/each}}
+            </select>
+            <label for="list"><b>Para:</b></label>
              <select name="list">
                 {{#each list}}
                 <option value="{{name}}">{{name}}</option>
