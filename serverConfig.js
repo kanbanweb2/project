@@ -34,17 +34,17 @@ app.post('/login', function (req, res, next){
         res.end();
         return;
     });
-});
-*/
+});*/
+
 
 app.post('/login', function (req, res, next){
     let login = req.body.login,
     password = req.body.password;
-    if (User.findOne({login: login, password: password}){
-        console.log(login);
-    }else{
-        console.log("não achou");
-    }
+   /* if (User.findOne({login: login, password: password})
+            console.log(login);
+        else{
+            console.log("não achou");
+    }*/
     if (login == 'felipe' && password == '123'){
         res.cookie('login', login);
         res.redirect('/');

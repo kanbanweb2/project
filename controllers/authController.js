@@ -20,9 +20,13 @@ try{
 
 });
 
+router.get('/register', (req, res)=>{
+    res.render('registerUser')
+});
+
 router.get('/logout', function(req, res){
     delete req.session.login;
     res.redirect('/');
   });
 
-module.exports = (app) => app.use('/auth', router);
+module.exports = app => app.use('/auth', router);
