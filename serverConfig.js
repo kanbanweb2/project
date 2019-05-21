@@ -36,6 +36,7 @@ app.post('/login', function (req, res, next){
     });
 });*/
 
+let usuario = null;
 
 app.post('/login', (req, res) => {
     let login = req.body.login,
@@ -45,18 +46,19 @@ app.post('/login', (req, res) => {
     User.get().then((users) => {
         users.forEach(function (user){
             console.log(login);
+            console.log("mongo tem: " + user.login + "pass: " + user.password);
             if (login == user.login && password == user.password){
                 userFound = user;
-                console.log(user.login +  "  " + user.password);
-                
+                console.log("achou 1 " + user.login +  "  " + user.password);
             }
         });
         if (userFound != null ){
             res.cookie('login', login);
             res.redirect('/');
+            return;
         }else {
-            res.status(404);
-            return res.status(404).send({error: "Não encontrado"});
+            res.status(403);
+            return res.status(403).send({error: "Usuário não encontrado"});
         }
 
     });

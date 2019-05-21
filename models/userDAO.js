@@ -16,10 +16,10 @@ module.exports = class UserDAO {
         });
     }
 
-    static insert (login, senha) {
+    static insert (login, password) {
         return UserDAO.connect().then((conn) => {
             let db = conn.db('kanban');
-            db.collection('user').insertOne({login: login, senha: senha});
+            db.collection('user').insertOne({login: login, password: password});
         });    
     }
 
