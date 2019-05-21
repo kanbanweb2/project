@@ -22,7 +22,7 @@
                 {{/each}}
             </select> 
 
-            <input type="text" placeholder="Atividade" name="activity">
+            <input type="text" placeholder="Atividade" required name="activity">
 
             <button type="submit" class="btn">Adicionar</button>
         </form>
@@ -56,7 +56,7 @@
      <div class="form-popup" id="formList">
         <form action="/list" class="form-container" method="POST">
             <h1>Adicionar Lista</h1>
-            <input type="text" placeholder="Lista" name="list">
+            <input type="text" required placeholder="Lista" name="list">
 
             <button type="submit" class="btn">Adicionar</button>
         </form>

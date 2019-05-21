@@ -3,6 +3,7 @@ let express = require('express')
     path = require('path')
     bodyParser = require('body-parser')
     cookieParser = require('cookie-parser')
+
     db = require('./models/listANDactivity')
     User = require('./models/userDAO')
     
@@ -22,7 +23,9 @@ app.post('/login', (req, res) => {
     let login = req.body.login,
         password = req.body.password;
     let userFound = null;
-
+    if(login == "null" || password == "null")
+        return res.status(404).send({error: "Campo nulo identificado"});
+   
     User.get().then((users) => {
         users.forEach(function (user){
         
@@ -32,6 +35,7 @@ app.post('/login', (req, res) => {
             }
         });
         if (userFound != null ){
+            console.log("Logado com sucesso");
             res.cookie('login', login);
             res.redirect('/');
             return;
@@ -50,6 +54,9 @@ app.get('/register', (req, res)=>{
 app.post('/register', (req, res)=>{
     let login = req.body.login,
         password = req.body.password;
+        if(login == "null" || password == "null")
+            return res.status(404).send({error: "Campo nulo identificado"});
+
         User.get().then((users) => {
             users.forEach(function (user){
                 if (login == user.login){
@@ -57,6 +64,7 @@ app.post('/register', (req, res)=>{
                 }
             });
             User.insert(login, password);
+            console.log("Novo usuário cadastrado");
             res.redirect('/');
         });
 });
