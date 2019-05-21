@@ -49,16 +49,23 @@ module.exports = class ListDAO{
 
     static removeActivity(activity, userCookie){
         ListDAO.connect((db) => {
-            db.collection('list').updateOne(
-                {
-                    user: userCookie
-                },{
-                    $pull:{
-                        activities:{
-                            $in: [activity]
+            db.collection('list').find({
+                activities:{$in:[activity]}
+            }).toArray((err, result) => {
+                if(err) throw err
+                else{
+                    db.collection('list').updateOne(
+                        {
+                            name: result[0].name,
+                            user: userCookie
+                        },{
+                            $pull:{
+                                activities:{$in:[activity]}
+                            }
                         }
-                    }
-                })
+                    )
+                }
+            })
         })
     }
 
