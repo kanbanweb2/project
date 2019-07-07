@@ -1,3 +1,3 @@
 const mongoose = require('mongoose')
 mongoose.Promise = global.Promise
-module.exports = mongoose.connect('mongodb://localhost/mydb')
+module.exports = mongoose.connect('mongodb://localhost/kanban')
