@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 
 export default props => {
 
     const list = props.list || []
     const unicidade = []
-    
-    
+
+
     const renderHeaders = () => {
 
         list.forEach(element => {
@@ -15,35 +15,39 @@ export default props => {
         });
 
         return unicidade.map(listas => (
-            <th>{listas}</th>
-            
-        ))
+            <div className="col-md-6">
+                <h2>{listas}</h2>
+                {renderRows(listas)}
+            </div>
+        ));
     }
 
-    const renderRows = () => {
-        console.log(list)
-        return unicidade.map(element => (
-            // if(list.lista == unicidade)(
-                // console.log(list.lista)
-                <tr key={list._id}>
-                    <td>{list.name}</td>
-                </tr>
-
-            // )
-        ))
+    const renderRows = (lista) => {
+        let atividades = []
+        list.forEach(element => {
+            if(element.lista===lista){
+                atividades.push({atividade:element.name, id:element._id})
+            }
+        });
+        
+        return(
+            atividades.map(element => (
+                <div className="row">
+                    {console.log(element)}
+                    <p>{element.atividade}</p>
+                    <button type='button' className='btn btn-light' onClick={console.log(element.id)}>...</button>
+                </div>
+            ))
+        )
     }
 
 
-    return(
-        <table className='table'>
-            <thead>
-                <tr>
-                    {renderHeaders()}
-                </tr>
-            </thead>
-            <tbody>
-                {renderRows()}
-            </tbody>
-        </table>
+    return (
+        <div className="container">
+            <div className="row">
+                {renderHeaders()}
+            </div>
+        </div>
     )
+    
 }

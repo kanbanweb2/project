@@ -47,7 +47,7 @@ export default class Painel extends Component {
                     activityName = {this.state.activityName}
                     listName = {this.state.listName}
                     ></Formulario>
-                <Lista list={this.state.list} user={this.state.user} url={URL}></Lista>
+                <Lista list={this.state.list} user={this.state.user}></Lista>
             </Fragment>
         )
     }
