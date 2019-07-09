@@ -4,8 +4,6 @@ export default props => {
 
     const list = props.list || []
     const unicidade = []
-
-
     const renderHeaders = () => {
 
         list.forEach(element => {
@@ -33,21 +31,25 @@ export default props => {
         return(
             atividades.map(element => (
                 <div className="row">
-                    {console.log(element)}
                     <p>{element.atividade}</p>
-                    <button type='button' className='btn btn-light' onClick={console.log(element.id)}>...</button>
+                    <button onClick={()=>props.handleDeleteObj(element)}>apagar</button>
+                    <button onClick={() => {
+                        var destido = prompt("Escolha o destido")
+                        props.handleMoveObj(element, destido)
+                    }}>mover</button>
                 </div>
             ))
         )
     }
 
-
     return (
-        <div className="container">
-            <div className="row">
-                {renderHeaders()}
+        <Fragment>
+            <div className="container">
+                <div className="row">
+                    {renderHeaders()}
+                </div>
             </div>
-        </div>
+        </Fragment>
     )
     
 }

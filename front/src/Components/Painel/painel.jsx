@@ -12,7 +12,6 @@ export default class Painel extends Component {
     constructor(props){
         super(props)
         this.state = {activityName:'', listName:'', list:[], user:'lucas'} //usuario predefinido por ainda n ter feito o sistema de login
-
         this.reflesh()
     }
 
@@ -22,7 +21,7 @@ export default class Painel extends Component {
 
     handleAdd(){
         axios.post(URL, {user:this.state.user, lista: this.state.listName, name: this.state.activityName}).then(
-            rest => console.log('Atividade adicionada')
+            rest => this.reflesh()
         )
     }
 
@@ -32,6 +31,18 @@ export default class Painel extends Component {
 
     handleChangeList(e){
         this.setState({...this.state, listName:e.target.value})
+    }
+
+    handleMoveObj(elemento, lista){
+        axios.put(`${URL}/${elemento.id}`,{...elemento, lista:lista}).then(
+            rest=>this.reflesh()
+        )
+    }
+
+    handleDeleteObj(elemento){
+        axios.delete(`${URL}/${elemento.id}`).then(
+            resp => this.reflesh()
+        )
     }
 
     render() {
@@ -47,7 +58,10 @@ export default class Painel extends Component {
                     activityName = {this.state.activityName}
                     listName = {this.state.listName}
                     ></Formulario>
-                <Lista list={this.state.list} user={this.state.user}></Lista>
+                <Lista 
+                list={this.state.list} user={this.state.user}
+                handleMoveObj = {this.handleMoveObj.bind(this)}
+                handleDeleteObj = {this.handleDeleteObj.bind(this)}></Lista>
             </Fragment>
         )
     }
