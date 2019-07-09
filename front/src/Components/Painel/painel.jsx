@@ -16,7 +16,7 @@ export default class Painel extends Component {
     }
 
     reflesh(){
-        axios.get(URL).then(resp => this.setState({...this.state, activityName:'', list:resp.data}))
+        axios.get(`${URL}/?user=${this.state.user}`).then(resp => this.setState({...this.state, activityName:'', list:resp.data}))
     }
 
     handleAdd(){
